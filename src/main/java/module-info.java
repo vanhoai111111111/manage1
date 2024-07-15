@@ -6,6 +6,7 @@ module com.example.manage {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires jdk.dynalink;
 
     opens com.example.manage to javafx.fxml;
     exports com.example.manage;
