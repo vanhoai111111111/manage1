@@ -53,6 +53,10 @@ public class duanController {
       duan.setItems(duanData);
 
       loadduanData();
+      //show dự án Tableview ->TextField
+      duan.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+         showduan(newValue); // newValue is the newly selected map
+      });
    }
 
    private void loadduanData() {
@@ -60,7 +64,7 @@ public class duanController {
    }
 
 
-
+//them du an
    public void them(javafx.event.ActionEvent event) {
 if (idduanTextField.getText().isEmpty() || tenduanTextField.getText().isEmpty() || tennvTextField.getText().isEmpty()) {
    showErrorAlert("Vui lòng điền đầy đủ thông tin.");
@@ -87,17 +91,22 @@ if (idduanTextField.getText().isEmpty() || tenduanTextField.getText().isEmpty() 
          deleteduan(selectedItem);
       }
    }
-   private void showduanDetails(Map<String, String> duan) {
-      if (duan != null) {
-         idduanTextField.setText(duan.get("id"));
-         tenduanTextField.setText(duan.get("tenduan"));
-         tennvTextField.setText(duan.get("tennv"));
+
+   private void showduan(Map<String, String> duanData) {
+
+      if (duanData != null) {
+         idduanTextField.setText(duanData.get("id"));
+         tenduanTextField.setText(duanData.get("tenduan"));
+         tennvTextField.setText(duanData.get("tennv"));
       } else {
-         // If the row selection is cleared, clear the text fields
-         idduanTextField.clear();
-         tenduanTextField.clear();
-         tennvTextField.clear();
+         clearFields();
       }
+   }
+
+   private void clearFields() {
+      idduanTextField.clear();
+      tenduanTextField.clear();
+      tennvTextField.clear();
    }
    private void showErrorAlert(String message) {
       Alert alert = new Alert(Alert.AlertType.ERROR);
